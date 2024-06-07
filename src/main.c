@@ -38,7 +38,7 @@ void gameLoop() {
   if (!gameOver) {
     gameOver = gameFrame(deltaTime, cubes, &cubesLength);
   }
-  if (e.type == SDL_QUIT) {
+  if (e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE) {
     quit = true;
   }
 }
@@ -46,7 +46,7 @@ void gameLoop() {
 int main(int arg, char *argv[]) {
   init();
 
-  Uint32 bg = SDL_MapRGB(screen->format, 30, 40, 43);
+  Uint32 bg = SDL_MapRGB(screen->format, 15, 255, 155);
 
   while (!quit) {
     last = now;
