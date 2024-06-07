@@ -2,8 +2,8 @@
 
 #include "./game.h"
 
-#define WIDTH 1000
-#define HEIGHT 1000
+#define WIDTH 320
+#define HEIGHT 240
 
 void draw(SDL_Surface *surface);
 

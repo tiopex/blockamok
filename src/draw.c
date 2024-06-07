@@ -238,8 +238,8 @@ void drawSpeedText(SDL_Surface *surface) {
   sprintf(score, "%d", (int)playerSpeed);
   SDL_Surface *surfaceMessage = TTF_RenderText_Solid(Sans, score, TEXT_COLOR);
   SDL_Rect Message_rect;
-  Message_rect.x = 25;
-  Message_rect.y = 50;
+  Message_rect.x = 0;
+  Message_rect.y = -5;
   SDL_BlitSurface(surfaceMessage, NULL, surface, &Message_rect);
   SDL_FreeSurface(surfaceMessage);
 }
@@ -247,8 +247,8 @@ void drawSpeedText(SDL_Surface *surface) {
 void drawGameOverText(SDL_Surface *surface) {
   SDL_Surface *surfaceMessage = TTF_RenderText_Solid(Sans, "GAME OVER", TEXT_COLOR);
   SDL_Rect Message_rect;
-  Message_rect.x = WIDTH / 2 - 100;
-  Message_rect.y = HEIGHT / 2;
+  Message_rect.x = WIDTH / 2 - 120;
+  Message_rect.y = HEIGHT / 2 - 30;
   SDL_BlitSurface(surfaceMessage, NULL, surface, &Message_rect);
   SDL_FreeSurface(surfaceMessage);
 }
