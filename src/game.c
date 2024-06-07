@@ -1,6 +1,6 @@
 #include "./game.h"
 
-#include <SDL.h>
+#include <SDL/SDL.h>
 #include <math.h>
 
 #include "./math.h"
@@ -108,24 +108,24 @@ int gameFrame(float deltaTime, Cube cubes[], int *cubesLength) {
 
   int cubesRemoved = 0;
 
-  const Uint8 *keyState = SDL_GetKeyboardState(NULL);
+  const Uint8 *keyState = SDL_GetKeyState(NULL);
 
   float xDiff = 0;
   float yDiff = 0;
-  if (keyState[SDL_SCANCODE_W]) {
+  if (keyState[SDLK_UP]) {
     yDiff = +turnSpeed;
   }
-  if (keyState[SDL_SCANCODE_S]) {
+  if (keyState[SDLK_DOWN]) {
     yDiff = -turnSpeed;
   }
-  if (keyState[SDL_SCANCODE_A]) {
+  if (keyState[SDLK_LEFT]) {
     xDiff = +turnSpeed;
   }
-  if (keyState[SDL_SCANCODE_D]) {
+  if (keyState[SDLK_RIGHT]) {
     xDiff = -turnSpeed;
   }
   float zSpeed = -speed;
-  if (keyState[SDL_SCANCODE_LSHIFT]) {
+  if (keyState[SDLK_LALT]) {
     zSpeed *= 3;
   }
 

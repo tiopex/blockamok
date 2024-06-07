@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SDL.h>
+#include <SDL/SDL.h>
 
 #define CUBE_FACE_POINTS_N 4
 #define CUBE_FACE_N 5
@@ -18,6 +18,10 @@ typedef struct Point {
   float y;
   float z;
 } Point;
+
+typedef struct {
+    float x, y;
+} Point2;
 
 typedef struct {
 } Block;

@@ -1,5 +1,5 @@
-#include <SDL.h>
-#include <SDL_ttf.h>
+#include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,9 +9,9 @@
 #include "./game.h"
 #include "./math.h"
 
-SDL_Window *window = NULL;
+//SDL_Window *window = NULL;
 SDL_Surface *screen = NULL;
-SDL_Renderer *renderer;
+//SDL_Renderer *renderer;
 SDL_Event e;
 bool quit = false;
 bool gameOver = false;
@@ -25,10 +25,9 @@ Cube cubes[1000];
 
 void init() {
   SDL_Init(SDL_INIT_EVERYTHING);
-  window = SDL_CreateWindow("Blockamok", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
-  renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-  screen = SDL_GetWindowSurface(window);
-  SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+  //window = SDL_CreateWindow("Blockamok", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
+  //renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+  screen = SDL_SetVideoMode(WIDTH, HEIGHT, 16, SDL_SWSURFACE);
   srand(time(NULL));
   TTF_Init();
   gameInit(cubes, &cubesLength);
@@ -47,25 +46,30 @@ void gameLoop() {
 int main(int arg, char *argv[]) {
   init();
 
+  Uint32 bg = SDL_MapRGB(screen->format, 30, 40, 43);
+
   while (!quit) {
     last = now;
     now = SDL_GetTicks();
 
     gameLoop();
 
-    draw(renderer);
+    SDL_FillRect(screen, NULL, bg);
+    draw(screen);
 
-    drawCubes(renderer, cubes, cubesLength);
+    drawCubes(screen, cubes, cubesLength);
 
-    drawSpeedText(renderer);
+    drawSpeedText(screen);
     if (gameOver) {
-      drawGameOverText(renderer);
+      drawGameOverText(screen);
     }
 
-    SDL_RenderPresent(renderer);
+    SDL_Flip(screen);
 
     deltaTime = (double)((now - last)) / 12000;
   }
 
+  SDL_FreeSurface(screen);
+  SDL_Quit();
   return 0;
 }
