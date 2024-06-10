@@ -11,6 +11,7 @@
 
 //SDL_Window *window = NULL;
 SDL_Surface *screen = NULL;
+SDL_Surface *sgame = NULL;
 //SDL_Renderer *renderer;
 SDL_Event e;
 bool quit = false;
@@ -25,9 +26,14 @@ Cube cubes[1000];
 
 void init() {
   SDL_Init(SDL_INIT_EVERYTHING);
+  SDL_ShowCursor(SDL_DISABLE);
   //window = SDL_CreateWindow("Blockamok", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
   //renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-  screen = SDL_SetVideoMode(WIDTH, HEIGHT, 16, SDL_SWSURFACE);
+  screen = SDL_SetVideoMode(WIDTH, HEIGHT, 16,  SDL_HWSURFACE | SDL_DOUBLEBUF| SDL_FULLSCREEN);
+  sgame = SDL_CreateRGBSurface(SDL_HWSURFACE, 320, 240, screen->format->BitsPerPixel,
+			screen->format->Rmask,
+			screen->format->Gmask,
+			screen->format->Bmask, 0);
   srand(time(NULL));
   TTF_Init();
   gameInit(cubes, &cubesLength);
@@ -53,11 +59,10 @@ int main(int arg, char *argv[]) {
     now = SDL_GetTicks();
 
     gameLoop();
-
-    SDL_FillRect(screen, NULL, bg);
-    draw(screen);
-
-    drawCubes(screen, cubes, cubesLength);
+    SDL_FillRect(sgame, NULL, bg);
+    draw(sgame);
+    drawCubes(sgame, cubes, cubesLength);
+    SDL_BlitSurface(sgame, NULL, screen, NULL);
 
     drawSpeedText(screen);
     if (gameOver) {

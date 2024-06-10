@@ -8,13 +8,13 @@
 const float PLAYER_INITIAL_SPEED = 100;
 const float BASE_TURN_SPEED = 30;
 
-const int CUBE_AMOUNT = 600;
+const int CUBE_AMOUNT = 100;
 
 const unsigned long cubeMemSize = CUBE_POINTS_N * sizeof(Point);
 
 const float MAX_DEPTH = 150;
-const float BOUNDS_X = 12;
-const float BOUNDS_Y = 12;
+const float BOUNDS_X = 6;
+const float BOUNDS_Y = 6;
 const float SPEED_INCREASE = 350;
 
 const float CUBE_SIZE = 0.5;
